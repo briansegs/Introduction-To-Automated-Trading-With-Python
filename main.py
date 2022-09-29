@@ -35,3 +35,29 @@ def getminutedata(symbol, interval, lookback):
 
 # plt.plot(test.Open)
 # plt.show()
+
+#buy if asset fell by more then 0.2% within the last 30 min
+#sell of asset rises by more then 0.15% or falls futher by 0.15%
+
+def strategytest(symbol, qty, entered=False):
+    df = getminutedata(symbol, '1min', '30')
+    cumulret = (df.Open.pct_change() +1).cumprod() - 1
+    if not entered:
+        if cumulret[-1] < -0.002:
+            order = df.Time
+            print(order)
+            entered = True
+        else:
+            print('No trade has been executed')
+    if entered:
+        while True:
+            df = getminutedata(symbol, '1min', '30')
+            sincebuy = df.loc[df.index > pd.to_datetime(order, unit='ms')]
+            if len(sincebuy) > 0:
+                sincebuyret = (sincebuy.Open.pct_change() +1).cumprod() - 1
+                if sincebuyret[-1] > 0.0015 or sincebuyret[-1] < -0.0015:
+                    order = df.Time
+                    print(order)
+                    break
+
+# strategytest('BTC-USDT', 0.001)
