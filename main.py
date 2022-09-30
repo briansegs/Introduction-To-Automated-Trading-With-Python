@@ -36,7 +36,7 @@ def plotopen(data):
     plt.show()
 
 def getpercent(number):
-    return "{:.2%}".format(number)
+    return "{:.1%}".format(number)
 
 #buy if asset fell by more then 0.2% within the last 30 min
 #sell of asset rises by more then 0.15% or falls futher by 0.15%
@@ -54,7 +54,7 @@ def strategytest(symbol, qty, entered=False):
         else:
             print('')
             print('No trade has been executed')
-            print(getpercent(cumulret[-1]) + " is not less than " + getpercent(-0.002) )
+            print(getpercent(cumulret[-1]) + " is not less than " + getpercent(0.002) )
             print('')
             print("-------------------------------------------")
             plotopen(df)
