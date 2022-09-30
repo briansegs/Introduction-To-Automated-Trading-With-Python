@@ -48,13 +48,13 @@ def strategytest(symbol, qty, entered=False):
         if cumulret[-1] < -0.002:
             order = df.index
             print(order[0])
-            print("price fell by" + getpercent(cumulret[-1]) + "in the last 30mins")
+            print("price fell by " + getpercent(cumulret[-1]) + " in the last 30mins")
             print("Buy: " + str(qty))
             entered = True
         else:
             print('')
             print('No trade has been executed')
-            print(getpercent(cumulret[-1]) + " is not less than " + getpercent(0.002) )
+            print(getpercent(cumulret[-1]) + " is not less than " + getpercent(-0.002) )
             print('')
             print("-------------------------------------------")
             plotopen(df)
